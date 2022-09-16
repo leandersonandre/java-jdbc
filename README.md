@@ -20,7 +20,7 @@ Repositório com exemplos de utilização da API de conectividade com banco de d
 
 ## Fábrica de conexões
 
-A fábrica de conexões é uma classe que lida com a criação de conexões com o banco de dados. Esta classe que conhece qual o tipo de de banco de dados e configurações de acesso. A fábrica de conexões faz uso de dois *design patterns*, factory e singleton.
+A fábrica de conexões é uma classe que lida com a criação de conexões com o banco de dados. Esta classe que conhece qual o tipo de de banco de dados e configurações de acesso. A fábrica de conexões faz uso de dois *design patterns*, [factory method](https://refactoring.guru/pt-br/design-patterns/factory-method) e [singleton](https://refactoring.guru/pt-br/design-patterns/singleton).
 
 
 ```mermaid
