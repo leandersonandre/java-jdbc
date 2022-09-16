@@ -83,8 +83,9 @@ class TarefaDAO{
 BaseDAO <|-- TarefaDAO
 ```
 
+A classe BaseDAO possui apenas um método de solicitar uma nova conexão ao banco de dados. Esta classe evita a dependência da ConnectionFactory em diferentes classes DAOs.
 
-```java
+```java 
 class BaseDAO {
 
     protected Connection getConexao(){
@@ -92,10 +93,12 @@ class BaseDAO {
     }
 
 }
+```
+
+A classe TarefaDAO possui todas as operações necessárias para manipular os dados da tabela DAO.
+
+```java
 package br.univille.poo.jdbc.dao;
-
-
-import br.univille.poo.jdbc.entidades.Tarefa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
