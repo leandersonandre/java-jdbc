@@ -69,6 +69,9 @@ Objeto de acesso a dados é um padrão utilizado para separar as regras de negó
 
 ```mermaid
 classDiagram
+class BaseDAO{
+    #getConexao() Connection
+}
 class TarefaDAO{
     +TarefaDAO()
     +obterPeloId(id) Tarefa
@@ -77,6 +80,7 @@ class TarefaDAO{
     +deletarPeloId(Tarefa tarefa)
     +inserir(Tarefa tarefa)
 }
+BaseDAO <|-- TarefaDAO
 ```
 
 
