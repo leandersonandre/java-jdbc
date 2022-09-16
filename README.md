@@ -73,6 +73,9 @@ class TarefaDAO{
     -ConnectionFactory instancia$
     +TarefaDAO()
     +obterPeloId(id) Tarefa
-    +atualizarPeloId(tarefa) Tarefa
+    +obterTodos() List~Tarefa~
+    +atualizarPeloId(Tarefa tarefa) Tarefa
+    +deletarPeloId(Tarefa tarefa)
+    +inserir(Tarefa tarefa)
 }
 ```
