@@ -20,6 +20,9 @@ Repositório com exemplos de utilização da API de conectividade com banco de d
 
 ## Fábrica de conexões
 
+A fábrica de conexões é uma classe que lida com a criação de conexões com o banco de dados. Esta classe que conhece qual o tipo de de banco de dados e configurações de acesso.
+
+
 ```mermaid
 classDiagram
 class ConnectionFactory{
