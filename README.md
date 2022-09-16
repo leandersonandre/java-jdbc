@@ -84,3 +84,124 @@ BaseDAO <|-- TarefaDAO
 ```
 
 
+```java
+class BaseDAO {
+
+    protected Connection getConexao(){
+        return ConnectionFactory.obterInstancia().obterConexao();
+    }
+
+}
+package br.univille.poo.jdbc.dao;
+
+
+import br.univille.poo.jdbc.entidades.Tarefa;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TarefaDAO extends BaseDAO{
+
+    private final static String COLUNA_DESCRICAO = "descricao";
+    private final static String COLUNA_ID = "id";
+    protected final static String CREATE_TABLE = """
+            CREATE TABLE IF NOT EXISTS  tarefa  (
+            	"id"	INTEGER UNIQUE,
+            	"descricao"	TEXT,
+            	PRIMARY KEY("id" AUTOINCREMENT)
+            );""";
+
+
+    public TarefaDAO(){
+
+    }
+
+    public Tarefa obterPeloId(int id) {
+        String sql = "select id, descricao from tarefa where id = ?";
+        try(Connection c = getConexao();
+            PreparedStatement p = c.prepareStatement(sql)){
+            p.setInt(1,id);
+            ResultSet resultset = p.executeQuery();
+            if (resultset.next()){
+                return mapearResultSetParaTarefa(resultset);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao obter tarefa pelo id "+id);
+        }
+        return null;
+    }
+
+    public Tarefa inserir(Tarefa tarefa) {
+        String sql = "insert into tarefa(descricao) values (?)";
+        try(Connection c = getConexao();
+            PreparedStatement p = c.prepareStatement(sql)){
+            p.setString(1,tarefa.getDescricao());
+            p.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao inserir tarefa pelo id");
+        }
+        return null;
+    }
+
+    public List<Tarefa> obterTodos() {
+        String sql = "select id, descricao from tarefa";
+        List<Tarefa> lista = new ArrayList<>();
+        try(Connection c = getConexao();
+            PreparedStatement p = c.prepareStatement(sql)){
+            ResultSet resultset = p.executeQuery();
+            while (resultset.next()){
+                Tarefa tarefa = mapearResultSetParaTarefa(resultset);
+                lista.add(tarefa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao obter todas as tarefas ");
+        }
+        return lista;
+    }
+
+    public Tarefa atualizarPeloId(Tarefa tarefa) {
+        String sql = "update tarefa set descricao = ? where id = ?";
+        try(Connection c = getConexao();
+            PreparedStatement p = c.prepareStatement(sql)){
+            p.setString(1,tarefa.getDescricao());
+            p.setInt(2,tarefa.getId());
+            p.execute();
+            return obterPeloId(tarefa.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao atualizar tarefa pelo id "+tarefa.getId());
+        }
+        return null;
+    }
+
+    public void deletarPeloId(Tarefa tarefa) {
+        String sql = "delete from tarefa  where id = ?";
+        try(Connection c = getConexao();
+            PreparedStatement p = c.prepareStatement(sql)){
+            p.setInt(1,tarefa.getId());
+            p.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao deletar tarefa pelo id "+tarefa.getId());
+        }
+    }
+
+    private Tarefa mapearResultSetParaTarefa(ResultSet result) throws SQLException {
+        Tarefa tarefa = new Tarefa();
+        tarefa.setDescricao(result.getString(COLUNA_DESCRICAO));
+        tarefa.setId(result.getInt(COLUNA_ID));
+        return tarefa;
+    }
+
+
+}
+
+```
+
