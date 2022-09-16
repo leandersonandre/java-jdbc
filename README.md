@@ -31,7 +31,6 @@ class ConnectionFactory{
     +obterInstancia()$ ConnectionFactory
     +obterConexao() Connection
 }
-
 ```
 
 ```java
@@ -64,3 +63,16 @@ class ConnectionFactory {
 }
 ```
 
+## Data Access Object, DAO
+
+Objeto de acesso a dados é um padrão utilizado para separar as regras de negócios das regras de acesso ao banco de dados. Nessa classe é realizado o mapeamento de objetos para tipos de dados SQL e vice-versa.
+
+```mermaid
+classDiagram
+class TarefaDAO{
+    -ConnectionFactory instancia$
+    +TarefaDAO()
+    +obterPeloId(id) Tarefa
+    +atualizarPeloId(tarefa) Tarefa
+}
+```
