@@ -3,10 +3,6 @@ Repositório com exemplos de utilização da API de conectividade com banco de d
 
 ## Drivers de Conexões
 
-SQlite 
-
-MySql 
-
 | Banco de Dados | Maven |
 |----------------|-------|
 | SQLite         |  https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc     |
